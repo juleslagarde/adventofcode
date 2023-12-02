@@ -8,9 +8,9 @@
 
 static const char* digits[] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
-bool match(const char *a, const char *b){
-    for(;*a==*b && *b!='\0' && *a!='\0';a++, b++){}
-    return *a=='\0' || *b=='\0';//if we reached the end that means the string match
+bool match(const char *haystack, const char *needle){
+    for(;*haystack==*needle && *needle!='\0' && *haystack!='\0';haystack++, needle++){}
+    return *needle=='\0';//if we reached the end of the needle that means match
 }
 
 int get_digit(int i, char* line){
@@ -32,6 +32,7 @@ int main(){
     while(fgets(buffer, sizeof(buffer), stdin)){
         int first=0, last=0;
         int size = strnlen(buffer, sizeof(buffer));
+        buffer[--size] = '\0'; //remove the '\n' at the end
         for(int i=0; i<size && first==0; i++){
             if((first = get_digit(i, buffer)) != 0)
                 break;
