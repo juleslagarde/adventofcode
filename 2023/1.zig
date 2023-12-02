@@ -7,21 +7,13 @@ const STEP2 = true;
 
 const digits = [_][]const u8{ "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-fn match(haystack: []const u8, needle: []const u8) bool {
-    var i: usize = 0;
-    while (i < haystack.len and i < needle.len and haystack[i] == needle[i]) {
-        i += 1;
-    }
-    return i == needle.len; //if we reached the end of the needle that means match
-}
-
 fn getDigit(i: usize, line: []const u8) ?u8 {
     if (line[i] >= '1' and line[i] <= '9') {
         return line[i] - '0';
     } else {
         if (!STEP2) return null;
         for (digits, 0..) |digit, j| {
-            if (match(line[i..], digit)) {
+            if (std.mem.startsWith(u8, line[i..], digit)) {
                 return @as(u8, @intCast(j + 1));
             }
         }

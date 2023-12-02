@@ -8,9 +8,10 @@
 
 static const char* digits[] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
-bool match(const char *haystack, const char *needle){
-    for(;*haystack==*needle && *needle!='\0' && *haystack!='\0';haystack++, needle++){}
-    return *needle=='\0';//if we reached the end of the needle that means match
+bool starts_with(const char *str, const char *prefix) {
+    size_t lenPrefix = strlen(prefix);
+    size_t lenStr = strlen(str);
+    return lenStr < lenPrefix ? false : strncmp(prefix, str, lenPrefix) == 0;
 }
 
 int get_digit(int i, char* line){
@@ -20,7 +21,7 @@ int get_digit(int i, char* line){
     }else{
 #if STEP2
         for(int j=0; j<sizeof(digits)/sizeof(digits[0]); j++){
-            if(match(line+i, digits[j])) return j+1;
+            if(starts_with(line+i, digits[j])) return j+1;
         }
 #endif
         return 0;
