@@ -29,6 +29,7 @@ int get_digit(int i, char* line){
 
 int main(){
     char buffer[128];
+    int sum = 0;
     while(fgets(buffer, sizeof(buffer), stdin)){
         int first=0, last=0;
         int size = strnlen(buffer, sizeof(buffer));
@@ -41,7 +42,8 @@ int main(){
             if((last = get_digit(i, buffer)) != 0)
                 break;
         }
-        printf("%d%d\n", first, last);
+        sum += first*10+last;
     }
+    printf("sum : %d",sum);
     return EXIT_SUCCESS;
 }
